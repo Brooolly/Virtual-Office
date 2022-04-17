@@ -78,7 +78,11 @@ const loader = new GLTFLoader(self.loadingManager);
 loader.setDRACOLoader(dracoLoader);
 loader.load("/model/scene.glb", function(gltf) {
 
-
+  gltf.scene.traverse((child) => {
+    if (child.name === "Screen") {
+      self.computerObject = child;
+    }
+  });
   
   gltf.scene.traverse((child) =>
   {
@@ -95,9 +99,9 @@ loader.load("/model/scene.glb", function(gltf) {
       child.castShadow = true;
       child.receiveShadow = true;
     }
+    console.log(points);
   })
 
-console.log(points);
 scene.add(gltf.scene);
 animate();
 })
@@ -232,9 +236,7 @@ if (window.location.hash == "#dev") {
   stats.dom.style.top = '';
 }
 
-/*
-    ** User Click
-    */
+//click
 
     const camToSave = {};
     let currentPoint;
