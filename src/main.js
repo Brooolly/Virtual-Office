@@ -71,13 +71,13 @@ const scene = new THREE.Scene()
 
 
 
+
 // Load 
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('/draco/');
 const loader = new GLTFLoader(self.loadingManager);
 loader.setDRACOLoader(dracoLoader);
 loader.load("/model/scene.glb", function(gltf) {
-
 
   
   gltf.scene.traverse((child) =>
@@ -95,8 +95,9 @@ loader.load("/model/scene.glb", function(gltf) {
       child.castShadow = true;
       child.receiveShadow = true;
     }
-
-  })
+    
+  });
+  
 console.log(points);
 
 scene.add(gltf.scene);
@@ -115,7 +116,7 @@ const far = 1000;
 const raycaster = new THREE.Raycaster();
 const points = {   
   
-  'Contact' : {
+  'Iphone' : {
     offset: new THREE.Vector3(0, -0.1, 0),
     element: document.querySelector('.point--contact'),
     details: document.querySelector('.screen--contact'),
@@ -151,7 +152,7 @@ renderer.setPixelRatio((window.devicePixelRatio=2));
 function animate() {
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
-  //raycaster.setFromCamera(  camera);
+  raycaster.setFromCamera(mouse,  camera);
 }
 
 
@@ -233,10 +234,7 @@ if (window.location.hash == "#dev") {
   stats.dom.style.top = '';
 }
 
-/*
-    ** User Click
-    */
-
+//click
     const camToSave = {};
     let currentPoint;
     const mouse = new THREE.Vector2();

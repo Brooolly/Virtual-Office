@@ -275,14 +275,14 @@ body:not(.details) .details {
   top: 82px;
   width: 42px;
   height: 42px;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgb(0, 102, 255);
   transition: background-color 0.2s;
   position: absolute;
   border-radius: 32px;
 }
 
 .screen__close:hover {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 89, 255, 0.2);
   cursor: pointer;
 }
 
