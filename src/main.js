@@ -78,11 +78,7 @@ const loader = new GLTFLoader(self.loadingManager);
 loader.setDRACOLoader(dracoLoader);
 loader.load("/model/scene.glb", function(gltf) {
 
-  gltf.scene.traverse((child) => {
-    if (child.name === "Screen") {
-      self.computerObject = child;
-    }
-  });
+
   
   gltf.scene.traverse((child) =>
   {
@@ -99,8 +95,9 @@ loader.load("/model/scene.glb", function(gltf) {
       child.castShadow = true;
       child.receiveShadow = true;
     }
-    console.log(points);
+
   })
+console.log(points);
 
 scene.add(gltf.scene);
 animate();
@@ -119,7 +116,7 @@ const raycaster = new THREE.Raycaster();
 const points = {   
   
   'Contact' : {
-    offset: new THREE.Vector3(0, 0, 0),
+    offset: new THREE.Vector3(0, -0.1, 0),
     element: document.querySelector('.point--contact'),
     details: document.querySelector('.screen--contact'),
     visible: false,
@@ -236,7 +233,9 @@ if (window.location.hash == "#dev") {
   stats.dom.style.top = '';
 }
 
-//click
+/*
+    ** User Click
+    */
 
     const camToSave = {};
     let currentPoint;
