@@ -194,10 +194,10 @@ controls.minPolarAngle = 0;
 controls.maxPolarAngle = Math.PI / 2;
 
 controls.keys = {
-  LEFT: 0, //left arrow
-  UP: 0, // up arrow
-  RIGHT: 0, // right arrow
-  BOTTOM: 0 // down arrow
+  LEFT: 40, //left arrow
+  UP: 40, // up arrow
+  RIGHT: 40, // right arrow
+  BOTTOM: 40 // down arrow
 }
 
 document.body.classList.add('camera-moving');
