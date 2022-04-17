@@ -275,7 +275,7 @@ body:not(.details) .details {
   top: 82px;
   width: 42px;
   height: 42px;
-  background: rgb(0, 102, 255);
+  background: rgb(0, 0, 0);
   transition: background-color 0.2s;
   position: absolute;
   border-radius: 32px;
