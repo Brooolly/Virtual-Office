@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@400; 500; 800&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -23,8 +25,7 @@ body {
   font-weight: 800;
  }
 
-
- canvas.webgl {
+canvas.webgl {
   position: fixed;
   left: 0;
   top: 0;
@@ -140,7 +141,6 @@ body:not(.loaded) .loading-screen__button {
   color:#5e5465;
   position: relative;
   text-align: center;
-
 }
 
 
@@ -152,10 +152,10 @@ body:not(.loaded) .loading-screen__button {
   color: black;
   overflow: hidden;
   white-space: nowrap;
-  transition: width 0.1s;
-  
-
+  transition: width 0.5s;
 }
+
+
 
 /*
 ** POINTS
@@ -210,7 +210,6 @@ body:not(.camera-moving):not(.details) .point.visible .point__label
     opacity: 1;
 }
 
-
 /*
 ** DETAILS
 */
@@ -233,7 +232,6 @@ body:not(.details) .details {
   background-color: rgb(255 255 255 / 42%);
 }
 
-
 /*
 ** SCREEN
 */
@@ -249,7 +247,6 @@ body:not(.details) .details {
   align-items: flex-start;
   position: relative;
   z-index: 1;
-
 }
 
 .screen__title {
@@ -261,7 +258,7 @@ body:not(.details) .details {
 .screen__title::before {
   content: '';
   position: absolute;
-  background: #0059ff80;
+  background: #0051ff80;
   top: 100%;
   left: 0;
   width: calc(100% + 24px);
@@ -275,14 +272,14 @@ body:not(.details) .details {
   top: 82px;
   width: 42px;
   height: 42px;
-  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.1);
   transition: background-color 0.2s;
   position: absolute;
   border-radius: 32px;
 }
 
 .screen__close:hover {
-  background: rgba(0, 89, 255, 0.2);
+  background: rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 
@@ -315,6 +312,125 @@ body:not(.details) .details {
   display:none;
 }
 
+/*
+** EDUCATION
+*/
+
+.education {
+  margin-top:24px;
+}
+
+.education__title {
+  font-size: 18px;
+  font-weight: 700;
+  font-family: 'Catamaran';
+  color: black;
+}
+
+.education__subtitle {
+  margin-bottom: 8px;
+  color:#9B9B9B;
+}
+
+.education__content {
+  margin-top:8px;
+}
+
+.education__content ul {
+  padding: 0;
+  margin-top: 16px;
+  padding-left: 19px;
+}
+
+/*
+** ACTIVITIES
+*/
+
+.activity {
+  margin: 24px 0;
+}
+
+.activity__title {
+  font-size: 18px;
+  color: black;
+  font-family: 'Catamaran';
+  font-weight: 800;
+}
+
+.activity__position {
+  color:#666;
+}
+
+/*
+** DATES
+*/
+
+.date {
+  display: flex;
+  align-items: center;
+}
+
+.date svg {
+  width:14px;
+}
+
+.date svg polygon {
+  fill:#d1d1d1;
+}
+
+.date__from, .date__to {
+  padding: 2px 12px;
+  background: #d1d1d1;
+  color: black;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.date__from {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.date__to {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.date__to-icon {
+  margin-left:-4px;
+}
+
+/*
+** Skills
+*/
+
+.skill-category {
+  margin:24px 0;
+}
+
+.skill-category__title {
+  font-size: 18px;
+  color: black;
+  font-family: 'Catamaran';
+  font-weight: 800;
+}
+
+.skill-category__content {
+  color:#666;
+}
+
+
+/*
+** Achievements
+*/
+
+.achievements {
+  padding-left: 19px;
+}
+
+.achievements li {
+  margin: 8px 0;
+}
 
 /*
 ** Contact

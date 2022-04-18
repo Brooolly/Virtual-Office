@@ -95,14 +95,14 @@ loader.load("/model/scene.glb", function(gltf) {
       child.castShadow = true;
       child.receiveShadow = true;
     }
-    
+    console.log(point);
   });
   
-console.log(points);
+
 
 scene.add(gltf.scene);
 animate();
-})
+});
 
 
 
@@ -116,11 +116,12 @@ const far = 1000;
 const raycaster = new THREE.Raycaster();
 const points = {   
   
-  'Iphone' : {
+  'Contact' : {
     offset: new THREE.Vector3(0, -0.1, 0),
     element: document.querySelector('.point--contact'),
     details: document.querySelector('.screen--contact'),
     visible: false,
+    
   }
   
 }
@@ -331,9 +332,8 @@ if (window.location.hash == "#dev") {
       }
       point.visible = visible;
     }
-/**
-     * Animate
-     */
+
+    //animate
  const clock = new THREE.Clock();
  let previousTime = 0;
  const tick = () => {
@@ -366,7 +366,7 @@ if (window.location.hash == "#dev") {
      }
 
      raycaster.setFromCamera(screenPosition, camera);
-     const intersects = raycaster.intersectObjects(scene.children, true);
+     const intersects = raycaster.intersectObjects(Object.children, true);
      if(intersects.length === 0)
      {
        setVisibilityForPoint(point, true);
