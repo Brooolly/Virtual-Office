@@ -10,7 +10,7 @@ import gsap from 'gsap'
 
 import Stats from 'stats.js'
 import * as dat from 'dat.gui'
-
+import { Vector2 } from 'three'
 
 //Bouton Sound
 self.soundEnabled = localStorage.getItem('soundEnabled') != "0";
@@ -34,8 +34,8 @@ document.querySelector(".loading-screen__button").onclick = () => {
   self.loder;
   document.body.classList.add("started");
   setTimeout(() => {
-    //self.video.muted = !self.soundEnabled;
-    //self.video.play();
+    self.video.muted = !self.soundEnabled;
+    self.video.play();
  }, 4200);
 };
 const loadingScreenTitleLoader = document.querySelector(".loading-screen__title--loader");
@@ -70,7 +70,18 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 
-
+// SETUP VIDEO TEXTURE
+const video = document.createElement('video');
+self.video = video;
+video.setAttribute('crossorigin', 'anonymous');
+video.src = "https://player.vimeo.com/external/538877060.hd.mp4?s=4042b4dc217598f5ce7c4cf8b8c3787b42218ea3&profile_id=175";
+video.load();
+const videoTexture = new THREE.VideoTexture(video);
+videoTexture.wrapT = THREE.RepeatWrapping;
+videoTexture.repeat.y = -1;
+videoTexture.rotation = 0;
+videoTexture.center = new Vector2(0.5, 0.5);
+const videoMaterial =  new THREE.MeshBasicMaterial( {map: videoTexture, side: THREE.FrontSide, toneMapped: false} );
 
 // Load 
 const dracoLoader = new DRACOLoader();
@@ -79,9 +90,13 @@ const loader = new GLTFLoader(self.loadingManager);
 loader.setDRACOLoader(dracoLoader);
 loader.load("/model/scene.glb", function(gltf) {
 
+
   
-  gltf.scene.traverse((child) =>
-  {
+  gltf.scene.traverse((child) => {
+    if (child.name === "Screen") {
+      self.computerObject = child;
+      child.material = videoMaterial;
+    } 
     const point = points[child.name];
     if (point) {
       point.position = new THREE.Vector3(
@@ -95,7 +110,7 @@ loader.load("/model/scene.glb", function(gltf) {
       child.castShadow = true;
       child.receiveShadow = true;
     }
-    console.log(point);
+    console.log(points);
   });
   
 
@@ -117,7 +132,7 @@ const raycaster = new THREE.Raycaster();
 const points = {   
   
   'Contact' : {
-    offset: new THREE.Vector3(0, -0.1, 0),
+    offset: new THREE.Vector3(0, 0, 0),
     element: document.querySelector('.point--contact'),
     details: document.querySelector('.screen--contact'),
     visible: false,
@@ -366,7 +381,7 @@ if (window.location.hash == "#dev") {
      }
 
      raycaster.setFromCamera(screenPosition, camera);
-     const intersects = raycaster.intersectObjects(Object.children, true);
+     const intersects = raycaster.intersectObjects(scene.children, true);
      if(intersects.length === 0)
      {
        setVisibilityForPoint(point, true);
