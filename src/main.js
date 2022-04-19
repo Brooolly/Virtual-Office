@@ -110,11 +110,11 @@ loader.load("/model/scene.glb", function(gltf) {
       child.castShadow = true;
       child.receiveShadow = true;
     }
-    console.log(points);
+    
   });
   
 
-
+  console.log(points)
 scene.add(gltf.scene);
 animate();
 });
@@ -136,7 +136,6 @@ const points = {
     element: document.querySelector('.point--contact'),
     details: document.querySelector('.screen--contact'),
     visible: false,
-    
   }
   
 }
@@ -168,7 +167,7 @@ renderer.setPixelRatio((window.devicePixelRatio=2));
 function animate() {
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
-  raycaster.setFromCamera(mouse,  camera);
+  raycaster.setFromCamera(mouse, camera);
 }
 
 
@@ -211,10 +210,10 @@ controls.minPolarAngle = 0;
 controls.maxPolarAngle = Math.PI / 2;
 
 controls.keys = {
-  LEFT: 40, //left arrow
-  UP: 40, // up arrow
-  RIGHT: 40, // right arrow
-  BOTTOM: 40 // down arrow
+  LEFT: 0, //left arrow
+  UP: 0, // up arrow
+  RIGHT: 0, // right arrow
+  BOTTOM: 0 // down arrow
 }
 
 document.body.classList.add('camera-moving');
@@ -251,173 +250,175 @@ if (window.location.hash == "#dev") {
 }
 
 //click
-    const camToSave = {};
-    let currentPoint;
-    const mouse = new THREE.Vector2();
+const camToSave = {};
+let currentPoint;
+const mouse = new THREE.Vector2();
 
-    renderer.domElement.addEventListener('mousemove', (event) =>
-    {
-        mouseMove(event.clientX, event.clientY)
+renderer.domElement.addEventListener('mousemove', (event) =>
+{
+    mouseMove(event.clientX, event.clientY)
+});
+
+renderer.domElement.addEventListener('touchstart', (event) =>
+{
+  mouseMove(event.touches[0].clientX, event.touches[0].clientY);
+});
+
+const mouseMove = (x, y) => {
+  mouse.x = x / sizes.width * 2 - 1;
+  mouse.y = - (y / sizes.height) * 2 + 1;
+}
+
+for(const key in points)
+{
+  const point = points[key];
+  point.element.addEventListener('pointerdown', (event) => {
+    currentPoint = point;
+    camToSave.position = camera.position.clone();
+    camToSave.quaternion = camera.quaternion.clone();
+    let triggeredVisibilityDetails = false;
+  document.body.classList.add('camera-moving');
+    let tween = gsap.to(controls.target, {
+      duration: 1.2,
+      x: point.position.x,
+      y: point.position.y,
+      z: point.position.z,
+      delay: 0,
+      onUpdate: () => {
+        if (!triggeredVisibilityDetails && tween.progress() > 0.5) {
+          triggeredVisibilityDetails = true;
+          document.body.classList.add("details")
+          point.details.classList.add("visible");
+        }
+      },
+      onComplete: () => {
+        document.body.classList.remove('camera-moving');
+      }
     });
-
-    renderer.domElement.addEventListener('touchstart', (event) =>
-    {
-      mouseMove(event.touches[0].clientX, event.touches[0].clientY);
-    });
-
-    const mouseMove = (x, y) => {
-      mouse.x = x / sizes.width * 2 - 1;
-      mouse.y = - (y / sizes.height) * 2 + 1;
-    }
-
-    for(const key in points)
-    {
-      const point = points[key];
-      point.element.addEventListener('pointerdown', (event) => {
-        currentPoint = point;
-        camToSave.position = camera.position.clone();
-        camToSave.quaternion = camera.quaternion.clone();
-        let triggeredVisibilityDetails = false;
-      document.body.classList.add('camera-moving');
-        let tween = gsap.to(controls.target, {
-          duration: 1.2,
-          x: point.position.x,
-          y: point.position.y,
-          z: point.position.z,
-          delay: 0,
-          onUpdate: () => {
-            if (!triggeredVisibilityDetails && tween.progress() > 0.5) {
-              triggeredVisibilityDetails = true;
-              document.body.classList.add("details")
-              point.details.classList.add("visible");
-            }
-          },
-          onComplete: () => {
-            document.body.classList.remove('camera-moving');
-          }
-        });
-      });
-    }
+  });
+}
     
-    const closeDetailsPanel = () => {
-      camToSave.resetPosition = true;
-      document.body.classList.remove("details");
-      currentPoint.details.classList.remove("visible");
-      currentPoint = null;
-      document.body.classList.add('camera-moving');
-      gsap.to(controls.target, {
-        duration: 1.2,
-        x: defaultControlsPosition.x,
-        y: defaultControlsPosition.y,
-        z: defaultControlsPosition.z,
-        delay: 0,
-        onComplete: () => {
-          document.body.classList.remove('camera-moving');
-        }
-      });
-      gsap.to(camera.position, {
-        duration: 1.2,
-        x: camToSave.position.x,
-        y: camToSave.position.y,
-        z: camToSave.position.z,
-        delay: 0,
-        onUpdate: function() {
-        }
-      });
-    };
-
-    document.querySelectorAll('.screen__close').forEach(closeButton => {
-      closeButton.addEventListener('pointerdown', closeDetailsPanel);
-    });
-
-    let isHoveringComputerScreen = false;
-
-    renderer.domElement.addEventListener('pointerdown', () => {
-      if (isHoveringComputerScreen && self.video.paused) {
-          self.video.play(); 
-      }
-    });
-
-    const setVisibilityForPoint = (point, visible) => {
-      if (visible && !point.visible) {
-        point.element.classList.add('visible');
-      }
-      if (!visible && point.visible) {
-        point.element.classList.remove('visible');
-      }
-      point.visible = visible;
+const closeDetailsPanel = () => {
+  camToSave.resetPosition = true;
+  document.body.classList.remove("details");
+  currentPoint.details.classList.remove("visible");
+  currentPoint = null;
+  document.body.classList.add('camera-moving');
+  gsap.to(controls.target, {
+    duration: 1.2,
+    x: defaultControlsPosition.x,
+    y: defaultControlsPosition.y,
+    z: defaultControlsPosition.z,
+    delay: 0,
+    onComplete: () => {
+      document.body.classList.remove('camera-moving');
     }
+  });
+  gsap.to(camera.position, {
+    duration: 1.2,
+    x: camToSave.position.x,
+    y: camToSave.position.y,
+    z: camToSave.position.z,
+    delay: 0,
+    onUpdate: function() {
+    }
+  });
+};
 
-    //animate
- const clock = new THREE.Clock();
- let previousTime = 0;
- const tick = () => {
-   if (this.stats) {
-     this.begin();
-   }
-   const elapsedTime = clock.getElapsedTime();
-   const deltaTime = elapsedTime - previousTime;
-   previousTime = elapsedTime;
+document.querySelectorAll('.screen__close').forEach(closeButton => {
+  closeButton.addEventListener('pointerdown', closeDetailsPanel);
+});
 
-   controls.update();
+let isHoveringComputerScreen = false;
 
-   // Go through each point
-   for(const key in points)
-   {
-     const point = points[key];
-     const screenPosition = point.position.clone();
-     screenPosition.project(camera);
+renderer.domElement.addEventListener('pointerdown', () => {
+  if (isHoveringComputerScreen && self.video.paused) {
+      self.video.play(); 
+  }
+});
 
-     const translateX = screenPosition.x * sizes.width * 0.5;
-     const translateY = - screenPosition.y * sizes.height * 0.5;
-     point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+const setVisibilityForPoint = (point, visible) => {
+  if (visible && !point.visible) {
+    point.element.classList.add('visible');
+  }
+  if (!visible && point.visible) {
+    point.element.classList.remove('visible');
+  }
+  point.visible = visible;
+}
+  
+
+
+
+const clock = new THREE.Clock();
+let previousTime = 0;
+const tick = () => {
+ if (this.stats) {
+   this.begin();
+ }
+ const elapsedTime = clock.getElapsedTime();
+ const deltaTime = elapsedTime - previousTime;
+ previousTime = elapsedTime;
+
+ controls.update();
+
+ // Go through each point
+ for(const key in points)
+ {
+   const point = points[key];
+   const screenPosition = point.position.clone();
+   screenPosition.project(camera);
+
+   const translateX = screenPosition.x * sizes.width * 0.5;
+   const translateY = - screenPosition.y * sizes.height * 0.5;
+   point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
      
-     // Check if point is visible before raycasting
-     let frustum = new THREE.Frustum();
-     frustum.setFromProjectionMatrix( new THREE.Matrix4().multiplyMatrices( camera.projectionMatrix, camera.matrixWorldInverse ) );
-     if (!frustum.containsPoint(point.position)) {
-       setVisibilityForPoint(point, false);
-       continue ;
-     }
+  // Check if point is visible before raycasting
+   let frustum = new THREE.Frustum();
+   frustum.setFromProjectionMatrix( new THREE.Matrix4().multiplyMatrices( camera.projectionMatrix, camera.matrixWorldInverse ) );
+   if (!frustum.containsPoint(point.position)) {
+     setVisibilityForPoint(point, false);
+     continue ;
+   }
 
-     raycaster.setFromCamera(screenPosition, camera);
-     const intersects = raycaster.intersectObjects(scene.children, true);
-     if(intersects.length === 0)
+   raycaster.setFromCamera(screenPosition, camera);
+   const intersects = raycaster.intersectObjects(scene.children, true);
+   if(intersects.length === 0)
+   {
+    setVisibilityForPoint(point, true);
+   }
+   else
+   {
+     const intersectionDistance = intersects[0].distance;
+     const pointDistance = point.position.distanceTo(camera.position);
+     if(intersectionDistance < pointDistance)
      {
-       setVisibilityForPoint(point, true);
+       setVisibilityForPoint(point, false);
      }
      else
      {
-       const intersectionDistance = intersects[0].distance;
-       const pointDistance = point.position.distanceTo(camera.position);
-       if(intersectionDistance < pointDistance)
-       {
-         setVisibilityForPoint(point, false);
-       }
-       else
-       {
-         setVisibilityForPoint(point, true);
-       }
-     }
-
-     raycaster.setFromCamera(mouse, camera);
-     const intersectsComputer = raycaster.intersectObjects([self.computerObject]);
-     if (intersectsComputer.length) {
-       isHoveringComputerScreen = true;
-     } else {
-       isHoveringComputerScreen = false;
+       setVisibilityForPoint(point, true);
      }
    }
 
-   // Render
-   effectComposer.render();
-
-   if (this.stats) {
-    this.stats.end();
+   raycaster.setFromCamera(mouse, camera);
+   const intersectsComputer = raycaster.intersectObjects([self.computerObject]);
+   if (intersectsComputer.length) {
+     isHoveringComputerScreen = true;
+   } else {
+     isHoveringComputerScreen = false;
    }
-   // Call tick again on the next frame
-   window.requestAnimationFrame(tick);
  }
 
- tick();
- console.log(renderer.info);
+ // Render
+ effectComposer.render();
+
+ if (this.stats) {
+  this.stats.end();
+ }
+ // Call tick again on the next frame
+ window.requestAnimationFrame(tick);
+}
+
+tick();
+console.log(renderer.info);
