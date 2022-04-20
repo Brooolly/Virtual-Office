@@ -190,8 +190,8 @@ body:not(.loaded) .loading-screen__button {
 .point__label::before {
   content: '';
   position: absolute;
-  background: #ffa50080;
-  top: 59%;
+  background: #0051ff80;
+  top: 50%;
   left: 50%;
   width: 80%;
   height: 12px;

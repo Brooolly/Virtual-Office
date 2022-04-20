@@ -4,13 +4,13 @@ import { GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/dracoloader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
-
 import gsap from 'gsap'
-
 
 import Stats from 'stats.js'
 import * as dat from 'dat.gui'
 import { Vector2 } from 'three'
+
+
 
 //Bouton Sound
 self.soundEnabled = localStorage.getItem('soundEnabled') != "0";
@@ -96,25 +96,28 @@ loader.load("/model/scene.glb", function(gltf) {
     if (child.name === "Screen") {
       self.computerObject = child;
       child.material = videoMaterial;
-    } 
+    }
+    
     const point = points[child.name];
     if (point) {
       point.position = new THREE.Vector3(
-        child.position.x + point.offset.x, 
-        child.position.y + point.offset.y, 
-        child.position.z + point.offset.z
+        child.position.x  + point.offset.x, 
+        child.position.y  + point.offset.y, 
+        child.position.z  + point.offset.z
       );
+      
     }
+    
     if(child instanceof THREE.Mesh)
     {
       child.castShadow = true;
       child.receiveShadow = true;
     }
-    
+      
   });
   
 
-  console.log(points)
+console.log(points)
 scene.add(gltf.scene);
 animate();
 });
@@ -132,7 +135,7 @@ const raycaster = new THREE.Raycaster();
 const points = {   
   
   'Contact' : {
-    offset: new THREE.Vector3(0, 0, 0),
+    offset: new THREE.Vector3(0, -0.1, 0),
     element: document.querySelector('.point--contact'),
     details: document.querySelector('.screen--contact'),
     visible: false,
@@ -155,6 +158,8 @@ const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
     antialias: true,
     alpha: true,
+    precision: "mediump",
+    powerPreference: 'high-performance',
     
 });
 renderer.setSize(canvas.clientWidth, canvas.clientHeight);
@@ -194,10 +199,9 @@ window.addEventListener('resize', () => {
 })
 
 
-// Controls
-const defaultControlsPosition = new THREE.Vector3(0, 0, 0);
-
+//Controls
 const controls = new OrbitControls(camera, canvas);
+const defaultControlsPosition = new THREE.Vector3(0, 0, 0);
 controls.target.set(defaultControlsPosition.x, defaultControlsPosition.y, defaultControlsPosition.z);
 
 controls.enableDamping = true;
@@ -352,9 +356,10 @@ const setVisibilityForPoint = (point, visible) => {
 
 const clock = new THREE.Clock();
 let previousTime = 0;
+let stats;
 const tick = () => {
- if (this.stats) {
-   this.begin();
+ if (stats) {
+   stats.begin();
  }
  const elapsedTime = clock.getElapsedTime();
  const deltaTime = elapsedTime - previousTime;
@@ -366,32 +371,26 @@ const tick = () => {
  for(const key in points)
  {
    const point = points[key];
-   const screenPosition = point.position.clone();
-   screenPosition.project(camera);
-
-   const translateX = screenPosition.x * sizes.width * 0.5;
-   const translateY = - screenPosition.y * sizes.height * 0.5;
-   point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+   
      
   // Check if point is visible before raycasting
-   let frustum = new THREE.Frustum();
-   frustum.setFromProjectionMatrix( new THREE.Matrix4().multiplyMatrices( camera.projectionMatrix, camera.matrixWorldInverse ) );
-   if (!frustum.containsPoint(point.position)) {
+  
+   if (point.position) {
      setVisibilityForPoint(point, false);
      continue ;
    }
 
-   raycaster.setFromCamera(screenPosition, camera);
-   const intersects = raycaster.intersectObjects(scene.children, true);
-   if(intersects.length === 0)
+   raycaster.setFromCamera(points, camera);
+   const intersectObjects = raycaster.intersectObjects(scene.children, true);
+   if(intersectObjects.length === 0)
    {
     setVisibilityForPoint(point, true);
    }
    else
    {
-     const intersectionDistance = intersects[0].distance;
+     const intersectionDistance = intersectObjects[0].distance;
      const pointDistance = point.position.distanceTo(camera.position);
-     if(intersectionDistance < pointDistance)
+     if(intersectionDistance = pointDistance)
      {
        setVisibilityForPoint(point, false);
      }
@@ -409,6 +408,7 @@ const tick = () => {
      isHoveringComputerScreen = false;
    }
  }
+ console.log(intersects)
 
  // Render
  effectComposer.render();
@@ -421,4 +421,5 @@ const tick = () => {
 }
 
 tick();
+
 console.log(renderer.info);
