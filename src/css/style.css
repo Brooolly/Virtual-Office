@@ -190,14 +190,12 @@ body:not(.loaded) .loading-screen__button {
 .point__label::before {
   content: '';
   position: absolute;
-  background: #0051ff80;
   top: 50%;
   left: 50%;
   width: 80%;
   height: 12px;
   z-index: -1;
-  transform: rotate(-5deg) translateX(-50%) translateY(-50%);
-  backdrop-filter: blur(5px);
+  
 }
 
 body:not(.camera-moving):not(.details) .point.visible .point__label

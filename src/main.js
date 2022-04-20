@@ -74,7 +74,7 @@ const scene = new THREE.Scene()
 const video = document.createElement('video');
 self.video = video;
 video.setAttribute('crossorigin', 'anonymous');
-video.src = "https://player.vimeo.com/external/538877060.hd.mp4?s=4042b4dc217598f5ce7c4cf8b8c3787b42218ea3&profile_id=175";
+video.src = "https://amplify-amplify9cb0d95f09e74-staging-185537-deployment.s3.amazonaws.com/WVO.mp4";
 video.load();
 const videoTexture = new THREE.VideoTexture(video);
 videoTexture.wrapT = THREE.RepeatWrapping;
@@ -381,14 +381,14 @@ const tick = () => {
    }
 
    raycaster.setFromCamera(points, camera);
-   const intersectObjects = raycaster.intersectObjects(scene.children, true);
-   if(intersectObjects.length === 0)
+   const intersects = raycaster.intersectObjects(scene.children, true);
+   if(intersects.length === 0)
    {
     setVisibilityForPoint(point, true);
    }
    else
    {
-     const intersectionDistance = intersectObjects[0].distance;
+     const intersectionDistance = intersects[0].distance;
      const pointDistance = point.position.distanceTo(camera.position);
      if(intersectionDistance = pointDistance)
      {
