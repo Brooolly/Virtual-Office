@@ -189,8 +189,8 @@ body:not(.loaded) .loading-screen__button {
 .point__label::before {
   content: '';
   position: absolute;
-  background: #ffa50080;
-  top: 59%;
+  background: #0051ff80;
+  top: 50%;
   left: 50%;
   width: 80%;
   height: 12px;
@@ -312,30 +312,30 @@ body:not(.details) .details {
 }
 
 /*
-** EDUCATION
+** Certificate
 */
 
-.education {
+.certificate {
   margin-top:24px;
 }
 
-.education__title {
+.certificate {
   font-size: 18px;
   font-weight: 700;
   font-family: 'Catamaran';
   color: black;
 }
 
-.education__subtitle {
+.certificate {
   margin-bottom: 8px;
   color:#9B9B9B;
 }
 
-.education__content {
+.certificate {
   margin-top:8px;
 }
 
-.education__content ul {
+.certificate ul {
   padding: 0;
   margin-top: 16px;
   padding-left: 19px;
@@ -471,7 +471,7 @@ body:not(.details) .details {
     margin: 8px 0;
   }
 
-  .education {
+  .certificate {
     margin-top: 8px;
   }
 }
