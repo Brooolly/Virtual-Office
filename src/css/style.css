@@ -257,13 +257,11 @@ body:not(.details) .details {
 .screen__title::before {
   content: '';
   position: absolute;
-  background: #0051ff80;
   top: 100%;
   left: 0;
   width: calc(100% + 24px);
   height: 24px;
   z-index: -1;
-  transform: rotate(-5deg) translateY(-100%) translateX(-12px);
 }
 
 .screen__close {
