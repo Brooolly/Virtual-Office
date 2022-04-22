@@ -236,7 +236,7 @@ class Scene {
     })
     renderer.shadowMap.enabled = false;
     renderer.shadowMap.type = THREE.PCFShadowMap;
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio= 2));
     renderer.setSize(sizes.width, sizes.height);
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.setClearColor(0xFFFFFF, 1);
