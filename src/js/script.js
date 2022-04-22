@@ -153,6 +153,24 @@ class Scene {
         element: document.querySelector('.point--contact'),
         details: document.querySelector('.screen--contact'),
         visible: false,
+      },
+      'CV' : {
+        offset: new THREE.Vector3(0, -0.1, 0),
+        element: document.querySelector('.point--cv'),
+        details: document.querySelector('.screen--cv'),
+        visible: false,
+      },
+      'Certificate' : {
+        offset: new THREE.Vector3(0, -0.1, 0),
+        element: document.querySelector('.point--certificate'),
+        details: document.querySelector('.screen--certificate'),
+        visible: false,
+      },
+      'Activities' : {
+        offset: new THREE.Vector3(0, -0.1, 0),
+        element: document.querySelector('.point--activities'),
+        details: document.querySelector('.screen--activities'),
+        visible: false,
       }
      };
     /*
@@ -222,7 +240,7 @@ class Scene {
     const renderer = new THREE.WebGLRenderer({
       canvas: canvas,
       antialias: window.devicePixelRatio == 1,
-      precision: "mediump",
+      precision: "high",
       powerPreference: 'high-performance',
     })
     renderer.shadowMap.enabled = false;

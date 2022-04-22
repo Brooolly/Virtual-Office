@@ -467,7 +467,7 @@ body:not(.details) .details {
     top: 64px;
   }
 
-  .skill-category, .activity {
+  .cv-category, .activity {
     margin: 8px 0;
   }
 
