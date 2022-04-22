@@ -78,9 +78,7 @@ class Scene {
 
   async loadResources() {
 
-    /**
-    * Models
-    */
+    // Models
     this.gltfLoader = new GLTFLoader(this.loadingManager)
     const dracoLoader = new DRACOLoader();
     dracoLoader.setDecoderPath('/draco/')
@@ -142,9 +140,8 @@ class Scene {
 
 
    
-    /**
-     * Labels
-     */
+    // Labels
+
      const raycaster = new THREE.Raycaster();
      const points = {
       
@@ -173,9 +170,10 @@ class Scene {
         visible: false,
       }
      };
-    /*
-    ** Office
-    */
+
+
+    // Office
+    
 
     scene.add(this.office);
     this.office.traverse((child) =>
@@ -195,9 +193,7 @@ class Scene {
       }
     })
 
-    /**
-     * Sizes
-     */
+    // Sizes
     const sizes = {
       width: window.innerWidth,
       height: window.innerHeight
@@ -223,24 +219,19 @@ class Scene {
 
     
 
-    /**
-     * Camera
-     */
-    // Base camera
+    // Camera
     const camera = new THREE.PerspectiveCamera(35, sizes.width / sizes.height, 0.01, 80);
     scene.add(camera);
-    camera.position.set(0, 0, -7);
-    
+    camera.position.set(0, 0, -7);    
     this.cameraRotation = 0;
 
 
-    /**
-     * Renderer
-     */
+    // Renderer
+
     const renderer = new THREE.WebGLRenderer({
       canvas: canvas,
-      antialias: window.devicePixelRatio == 1,
-      precision: "high",
+      antialias: window.devicePixelRatio == 2,
+      precision: "mediump",
       powerPreference: 'high-performance',
     })
     renderer.shadowMap.enabled = false;
@@ -327,10 +318,7 @@ class Scene {
       },
 		});
 
-    /*
-    ** User Click
-    */
-
+    // Click
     const camToSave = {};
     let currentPoint;
     const mouse = new THREE.Vector2();
@@ -428,9 +416,7 @@ class Scene {
       point.visible = visible;
     }
 
-    /**
-     * Animate
-     */
+    //Animate
     const clock = new THREE.Clock();
     let previousTime = 0;
     const self = this;
