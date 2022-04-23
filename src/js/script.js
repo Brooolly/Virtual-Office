@@ -15,6 +15,8 @@ import Stats from 'stats.js'
 import * as dat from 'dat.gui'
 import { Vector2 } from 'three'
 
+
+
 class Scene {
   constructor() {
     this.setup();
@@ -88,11 +90,17 @@ class Scene {
     const gltf = await this.gltfLoader.loadAsync('/model/scene.glb');
 
 
+  
+    
     // SETUP VIDEO TEXTURE
     const video = document.createElement('video');
     this.video = video;
-    video.setAttribute('crossorigin', 'anonymous');
-    video.src = "https://player.vimeo.com/external/538877060.hd.mp4?s=4042b4dc217598f5ce7c4cf8b8c3787b42218ea3&profile_id=175";
+    
+    video.setAttribute( 'crossOrigin','Anonymous',);
+    video.src = "https://vod-progressive.akamaized.net/exp=1650730253~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F474%2F28%2F702370001%2F3251031783.mp4~hmac=520b2109bcec98a12a1754786efac2959aba46f93aef793345d22211b971717b/vimeo-prod-skyfire-std-us/01/474/28/702370001/3251031783.mp4";
+    video.controls = 'autoplay',
+    video.name = 'media',
+    video.type = "video/mp4",
     video.load();
     const videoTexture = new THREE.VideoTexture(video);
     videoTexture.wrapT = THREE.RepeatWrapping;
@@ -102,6 +110,7 @@ class Scene {
     const videoMaterial =  new THREE.MeshBasicMaterial( {map: videoTexture, side: THREE.FrontSide, toneMapped: false} );
     
     const self = this;
+
     // SETUP CUSTOM MATERIALS
   
     gltf.scene.traverse((child) => {
@@ -246,7 +255,7 @@ class Scene {
 
     let RenderTargetClass = null;
 
-    if (renderer.getPixelRatio() === 1 && renderer.capabilities.isWebGL2) {
+    if (renderer.getPixelRatio() === 2 && renderer.capabilities.isWebGL2) {
       RenderTargetClass = THREE.WebGLMultisampleRenderTarget;
       console.log('Using WebGLMultisampleRenderTarget');
     }
