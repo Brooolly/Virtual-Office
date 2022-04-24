@@ -302,7 +302,7 @@ class Scene {
     controls.maxDistance = 3;
     controls.minDistance = 0;
     controls.maxPolarAngle = Math.PI / 2;
-    controls.minPolarAngle = 1.3;
+    controls.minPolarAngle = 1;
 
 
     controls.keys = {
