@@ -97,7 +97,7 @@ class Scene {
     this.video = video;
     
     video.setAttribute( 'crossOrigin','Anonymous',);
-    video.src = "https://vod-progressive.akamaized.net/exp=1650805855~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F503%2F28%2F702515198%2F3251804335.mp4~hmac=8d64ea6fe5a34108118a88ff08ee2932f2f59d5373956acb92536824498ab674/vimeo-prod-skyfire-std-us/01/503/28/702515198/3251804335.mp4";
+    video.src = "https://vod-progressive.akamaized.net/exp=1650805855~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F503%2F28%2F702515198%2F3251801369.mp4~hmac=65aacdc0897c03875a15685ad4f04ed4aae6623c45ba74d71eaaec563add7e74/vimeo-prod-skyfire-std-us/01/503/28/702515198/3251801369.mp4";
     video.controls = 'autoplay',
     video.name = 'media',
     video.type = "video/mp4",
