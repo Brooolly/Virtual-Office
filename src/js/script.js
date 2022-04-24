@@ -250,7 +250,7 @@ class Scene {
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.setClearColor(0xFFFFFF, 1);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1;
+    renderer.toneMappingExposure = 0.75;
 
 
     let RenderTargetClass = null;
@@ -302,7 +302,7 @@ class Scene {
     controls.maxDistance = 3;
     controls.minDistance = 0;
     controls.maxPolarAngle = Math.PI / 2;
-    controls.minPolarAngle = 1;
+    controls.minPolarAngle = 1.3;
 
 
     controls.keys = {
