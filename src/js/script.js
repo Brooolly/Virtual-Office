@@ -98,9 +98,7 @@ class Scene {
     
     video.setAttribute( 'crossOrigin','Anonymous',);
     video.src = "https://vod-progressive.akamaized.net/exp=1650798302~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F503%2F28%2F702515198%2F3251801369.mp4~hmac=a82106ca343caae99514343fd773ea135a18a616682a66cb706033aaa36aeb44/vimeo-prod-skyfire-std-us/01/503/28/702515198/3251801369.mp4";
-    video.controls = 'autoplay',
-    video.name = 'media',
-    video.type = "video/mp4",
+   
     video.load();
     const videoTexture = new THREE.VideoTexture(video);
     videoTexture.wrapT = THREE.RepeatWrapping;
@@ -250,7 +248,7 @@ class Scene {
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.setClearColor(0xFFFFFF, 1);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 0.75;
+    renderer.toneMappingExposure = 1;
 
 
     let RenderTargetClass = null;
