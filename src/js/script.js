@@ -249,8 +249,9 @@ class Scene {
     renderer.setSize(sizes.width, sizes.height);
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.setClearColor(0xFFFFFF, 1);
+    renderer.setItem
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1;
+    renderer.toneMappingExposure = 0.5;
 
 
     let RenderTargetClass = null;
