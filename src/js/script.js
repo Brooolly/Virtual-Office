@@ -229,7 +229,7 @@ class Scene {
     
 
     // Camera
-    const camera = new THREE.PerspectiveCamera(35, sizes.width / sizes.height, 1, 1000);
+    const camera = new THREE.PerspectiveCamera(30, sizes.width / sizes.height, 1, 1000);
     scene.add(camera);
     camera.position.set(0, 0, -7);    
     this.cameraRotation = 0;
