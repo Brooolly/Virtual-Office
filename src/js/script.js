@@ -109,6 +109,7 @@ class Scene {
     videoTexture.center = new Vector2(0.5, 0.5);
     const videoMaterial =  new THREE.MeshBasicMaterial( {map: videoTexture, side: THREE.FrontSide, toneMapped: false} );
 
+
     
     const self = this;
 
@@ -118,7 +119,8 @@ class Scene {
       if (child.name === "Screen") {
         self.computerObject = child;
         child.material = videoMaterial;
-      }      
+      }
+          
     });
 
     this.office = gltf.scene;
