@@ -22,6 +22,7 @@ body {
   line-height: 100%;
   font-family: 'Catamaran', sans-serif;
   font-weight: 800;
+  opacity: 1;
  }
 
 canvas.webgl {
@@ -265,7 +266,7 @@ body:not(.details) .details {
 
 .screen__close {
   right: 14px;
-  top: 82px;
+  top: 42px;
   width: 42px;
   height: 42px;
   background: rgba(0, 0, 0, 0.1);
