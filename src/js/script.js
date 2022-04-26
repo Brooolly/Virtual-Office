@@ -89,17 +89,17 @@ class Scene {
     // LOAD OFFICE
     const gltf = await this.gltfLoader.loadAsync('/model/scene.glb');
 
-
+  
   
     
     // SETUP VIDEO TEXTURE
     const video = document.createElement('video');
     this.video = video;
     
-    video.setAttribute( 'crossOrigin','Anonymous',);
+    video.setAttribute( 'origin','anonymous',);
     video.src = "https://amplify-amplify9cb0d95f09e74-staging-185537-deployment.s3.amazonaws.com/VVO.mp4";
-    video.controls = 'autoplay';
-    video.type = 'media/mp4';
+    //video.controls = 'autoplay';
+    //video.type = 'media/mp4'; 
     
     video.load();
     const videoTexture = new THREE.VideoTexture(video);
@@ -109,7 +109,7 @@ class Scene {
     videoTexture.center = new Vector2(0.5, 0.5);
     const videoMaterial =  new THREE.MeshBasicMaterial( {map: videoTexture, side: THREE.FrontSide, toneMapped: false} );
 
-
+    
     
     const self = this;
 
@@ -120,7 +120,9 @@ class Scene {
         self.computerObject = child;
         child.material = videoMaterial;
       }
-          
+      
+      
+                
     });
 
     this.office = gltf.scene;
