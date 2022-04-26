@@ -97,7 +97,7 @@ class Scene {
     this.video = video;
     
     video.setAttribute( 'crossOrigin','Anonymous',);
-    video.src = "https://vod-progressive.akamaized.net/exp=1650926517~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F503%2F28%2F702515198%2F3251801369.mp4~hmac=626e332210e66a251fe2a5235f4e580cb3e3c8b51820d0ead0298f2ea9aef037/vimeo-prod-skyfire-std-us/01/503/28/702515198/3251801369.mp4";
+    video.src = "https://amplify-amplify9cb0d95f09e74-staging-185537-deployment.s3.amazonaws.com/VVO.mp4";
     
     video.load();
     const videoTexture = new THREE.VideoTexture(video);
