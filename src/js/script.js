@@ -251,10 +251,10 @@ class Scene {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio= 2));
     renderer.setSize(sizes.width, sizes.height);
     renderer.outputEncoding = THREE.sRGBEncoding;
-    renderer.setClearColor(0xFFFFFF, 1);
+    renderer.setClearColor(0xFFFFFF, 0.8);
     renderer.setItem
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 0.5;
+    renderer.toneMappingExposure = 1;
 
 
     let RenderTargetClass = null;
