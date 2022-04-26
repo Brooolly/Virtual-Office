@@ -98,6 +98,8 @@ class Scene {
     
     video.setAttribute( 'crossOrigin','Anonymous',);
     video.src = "https://amplify-amplify9cb0d95f09e74-staging-185537-deployment.s3.amazonaws.com/VVO.mp4";
+    video.controls = 'autoplay';
+    video.type = 'media/mp4';
     
     video.load();
     const videoTexture = new THREE.VideoTexture(video);
