@@ -96,7 +96,7 @@ class Scene {
     const video = document.createElement('video');
     this.video = video;
     
-    video.setAttribute( 'crossOrigin','gcs',);
+    video.setAttribute( 'crossOrigin','anonymous',);
     
     video.src = "https://vod-progressive.akamaized.net/exp=1651162708~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F823%2F28%2F704117958%2F3260372730.mp4~hmac=747c589f8f432c77dbc0f511af6ebffcdb2db9e958dccfb52b4f9ae5ef4e83a7/vimeo-prod-skyfire-std-us/01/823/28/704117958/3260372730.mp4";
     video.fullscreenToggle = false;
