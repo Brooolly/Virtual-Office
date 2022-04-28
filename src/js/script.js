@@ -96,9 +96,9 @@ class Scene {
     const video = document.createElement('video');
     this.video = video;
     
-    video.setAttribute( 'crossOrigin','anonymous',);
+    video.setAttribute( 'crossOrigin','gcs',);
     
-    video.src = "https://vod-progressive.akamaized.net/exp=1651152496~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F823%2F28%2F704117958%2F3260372801.mp4~hmac=c5bc01d5d7594ef26d2f1cccbfd1408f54c77b1fd816ab02e69a4ac9c795a1ba/vimeo-prod-skyfire-std-us/01/823/28/704117958/3260372801.mp4";
+    video.src = "https://vod-progressive.akamaized.net/exp=1651156877~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F823%2F28%2F704117958%2F3260372801.mp4~hmac=d9bc7eed2c9c4aefdad78723a7d73f4c1a9f42f651faeb6e5144a608581d0086/vimeo-prod-skyfire-std-us/01/823/28/704117958/3260372801.mp4";
     video.fullscreenToggle = false;
     video.load();
     const videoTexture = new THREE.VideoTexture(video);
